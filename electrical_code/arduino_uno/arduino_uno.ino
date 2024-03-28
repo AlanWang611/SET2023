@@ -1,3 +1,7 @@
+/*
+Arduino Uno handles Lidar data
+*/
+
 #include <SoftwareSerial.h>
 
 const int stepPin = 4;
