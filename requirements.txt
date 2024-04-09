@@ -1,5 +1,4 @@
 matplotlib
-cv2
+opencv-python
 numpy
 serial
-list_ports
