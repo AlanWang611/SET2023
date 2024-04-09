@@ -1,0 +1,5 @@
+matplotlib
+cv2
+numpy
+serial
+list_ports
