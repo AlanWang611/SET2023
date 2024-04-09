@@ -6,14 +6,6 @@ int leftMotor2 = 7;
 int rightMotor1 = 6;
 int rightMotor2 = 5;
 
-int angle;
-int dist;
-String inputString;
-
-
-
-// forward = pin 1 high
-
 void goForward(int delay_time) {
   // Set both left and right motors to move forward
   digitalWrite(leftMotor1, HIGH);
@@ -84,22 +76,11 @@ void setup() {
   //attachInterrupt(digitalPinToInterrupt(inputd3), toggleA7, CHANGE); // Attach interrupt to pin D3
 
 }
+void loop(){
 
-void  loop() {
-  while (!Serial.available());
-
-  // Receiving Data from Computer
-  if (Serial.available() > 0) {
-    inputString = Serial.readStringUntil('\n');
-  }
-  // 3 characters - angle
-  // 3 characters - distance
-  angle = inputString.substring(0, 3).toInt();
-  dist = inputString.substring(3, 7).toInt();
-
-  turnRight(angle * 100);
-  goForward(dist * 100);
+  goForward(1000);
+  delay(1000); // Wait for 1 second
+  goBackward(1000);
 
 }
-
 

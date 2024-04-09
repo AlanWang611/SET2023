@@ -10,8 +10,6 @@ int angle;
 int dist;
 String inputString;
 
-
-
 // forward = pin 1 high
 
 void goForward(int delay_time) {
@@ -81,7 +79,6 @@ void setup() {
   pinMode(leftMotor2, OUTPUT);
   pinMode(rightMotor1, OUTPUT);
   pinMode(rightMotor2, OUTPUT);
-  //attachInterrupt(digitalPinToInterrupt(inputd3), toggleA7, CHANGE); // Attach interrupt to pin D3
 
 }
 
@@ -101,5 +98,3 @@ void  loop() {
   goForward(dist * 100);
 
 }
-
-
