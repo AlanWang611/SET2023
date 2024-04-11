@@ -1,5 +1,7 @@
 import cv2
 import serial
+from jetson_inference import detectNet
+from jetson_utils import videoSource, videoOutput
 
 """
 camera
@@ -10,21 +12,13 @@ navigation algorithm
 
 
 def main():
-    ser = serial.Serial('/dev/cu.usbmodem101', 9600)
+    net = detectNet("ssd-mobilenet-v2", threshold=0.5)
+    camera = videoSource("csi://0")      # '/dev/video0' for V4L2
 
-    try:
-        distance = True
-        while True:
-            data = ser.readline().decode().strip()
-            if distance:
-                print("Distance:", data)
-                distance = not distance
-            else:
-                print("Strength:", data)
-                distance = not distance
-    except KeyboardInterrupt:
-        ser.close()
+    img = camera.Capture()
+    detections = net.Detect(img)
 
+    print(detections)
 
 if __name__ == "__main__":
     main()
