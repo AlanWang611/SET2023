@@ -2,7 +2,7 @@ name: Build image
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, resnet ]
     tags:
       - "*"
   workflow_dispatch:
