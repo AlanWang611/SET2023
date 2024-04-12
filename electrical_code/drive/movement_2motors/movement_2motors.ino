@@ -6,6 +6,7 @@ int leftMotor2 = 7;
 int rightMotor1 = 6;
 int rightMotor2 = 5;
 
+int direction;
 int angle;
 int dist;
 String inputString;
@@ -92,13 +93,24 @@ void  loop() {
   if (Serial.available() > 0) {
     inputString = Serial.readStringUntil('\n');
   }
+  // 1 character - direction (1 as left and 0 as right)
   // 3 characters - angle
   // 3 characters - distance
-  angle = inputString.substring(0, 3).toInt();
-  dist = inputString.substring(3, 7).toInt();
+  direction = inputString.substring(0, 1).toInt();
+  angle = inputString.substring(1, 4).toInt();
+  String dist_str = inputString.substring(4, 8);
+  while (dist_str.length() < 3) {
+    dist_str = "0" + dist_str;
+  }
+  dist = dist_str.toInt();
 
-  turnRight(angle * 100);
-  goForward(dist * 100);
+  if(direction == 1){
+    turnLeft(angle * 10);
+  }
+  else{
+    turnRight(angle * 10);
+  }
+  goForward(dist * 10);
 
 }
 
