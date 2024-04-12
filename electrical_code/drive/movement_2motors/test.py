@@ -1,4 +1,4 @@
-import serial.tools
+import serial
 import time
 import sys
 
