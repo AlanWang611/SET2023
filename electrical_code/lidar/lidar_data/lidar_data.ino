@@ -1,12 +1,24 @@
 #include <SoftwareSerial.h>
+#include <Servo.h>
+
+Servo myservo;
+int servo1_pin = 12;
+int servo2_pin = 13;
+int motor_pin1 = 5;
+int motor_pin2 = 6;
+int motor_pin3 = 7;
+int motor_pin4 = 8;
+int pin_input = 2;
 
 const int stepPin = 4;
-const int enPin = 2;
+const int enPin = 5;
 const int dirPin = 3;
 int totalSteps = 0;
 float currentAngle = 0;
 const int STEPS = 1600; // resolution || 1600 steps per rev (on motor driver)
 const float angle_per_step = 360.0 / float(STEPS);
+
+int servoAngle;
 
 const int HEADER = 0x59;
 // Variables
@@ -25,6 +37,15 @@ void setup() {
   digitalWrite(enPin, LOW);
   digitalWrite(dirPin, LOW); // default counter clockwise
 
+  myservo.attach(servo1_pin);
+  pinMode(servo2_pin, OUTPUT);
+  pinMode(motor_pin1, OUTPUT);
+  pinMode(motor_pin2, OUTPUT);
+  pinMode(motor_pin3, OUTPUT);
+  pinMode(motor_pin4, OUTPUT);
+  pinMode(pin_input, INPUT);
+  attachInterrupt(digitalPinToInterrupt(pin_input), moveArm, CHANGE);
+
   Serial.begin(115200);
   Serial.print("serial started");
   mySerial.begin(115200);
@@ -32,18 +53,19 @@ void setup() {
 }
 
 void loop() {
-  // rotate a step
-  rotate(1);
+  myservo.write(servoAngle);
+  // // rotate a step
+  // rotate(1);
 
-  // get distance 
-  Serial.println("dist : " + String(getDist()));
+  // // get distance 
+  // Serial.println("dist : " + String(getDist()));
 
-  // serial print angle
-  if (currentAngle >= 360.0) {
-    currentAngle = currentAngle - 360.0;
-  }
+  // // serial print angle
+  // if (currentAngle >= 360.0) {
+  //   currentAngle = currentAngle - 360.0;
+  // }
 
-  Serial.println("angle : " + String(currentAngle));
+  // Serial.println("angle : " + String(currentAngle));
 }
 
 int getDist(){
@@ -115,4 +137,25 @@ void rotate(float moveSteps) {
   totalSteps += int(moveSteps);
   totalSteps %= STEPS; // capping @ # steps per rev
   currentAngle += moveSteps * angle_per_step;
+}
+
+void moveArm() {
+    // Run motor driver for 2 seconds
+    // digitalWrite(motor_pin1, HIGH);
+    // digitalWrite(motor_pin2, LOW);
+    // digitalWrite(motor_pin3, HIGH);
+    // digitalWrite(motor_pin4, LOW);
+    // delay(3000);
+    
+
+    // Use servo for 120 degrees
+    Serial.println("Servo angle increased");
+    servoAngle = servoAngle + 2;
+    servoAngle = servoAngle % 180;
+
+    // digitalWrite(motor_pin1, LOW);
+    // digitalWrite(motor_pin2, LOW);
+    // digitalWrite(motor_pin3, LOW);
+    // digitalWrite(motor_pin4, LOW);
+
 }
