@@ -1,5 +1,3 @@
-import cv2
-import serial
 from jetson_inference import detectNet
 from jetson_utils import videoSource, videoOutput
 
