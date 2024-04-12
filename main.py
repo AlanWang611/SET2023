@@ -10,7 +10,7 @@ navigation algorithm
 
 
 def main():
-    ser = serial.Serial('/dev/cu.usbmodem101', 9600)
+    ser = serial.Serial('/dev/serial', 9600)
 
     try:
         distance = True
