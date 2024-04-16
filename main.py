@@ -16,7 +16,6 @@ def main():
     img = camera.Capture()
     detections = net.Detect(img)
 
-    print(detections)
 
 if __name__ == "__main__":
     main()
