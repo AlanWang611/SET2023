@@ -4,7 +4,7 @@
 import cv2
 import os
 import time
-import rospy
+# import rospy
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 
