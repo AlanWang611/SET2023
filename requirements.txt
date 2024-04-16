@@ -1,3 +1,4 @@
-opencv
-numpy
 matplotlib
+opencv-python
+numpy
+serial
