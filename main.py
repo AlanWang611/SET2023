@@ -1,21 +1,11 @@
-from jetson_inference import detectNet
-from jetson_utils import videoSource, videoOutput
+from ultralytics import YOLO
+import cv2
 
-"""
-camera
-navigation movement
-sensors (lidar)
-navigation algorithm
-"""
+cap = cv2.VideoCapture('/dev/video0')
+ret, frame = cap.read()
 
 
-def main():
-    net = detectNet("ssd-mobilenet-v2", threshold=0.5)
-    camera = videoSource("csi://0")      # '/dev/video0' for V4L2
+model = YOLO('yolov8n.pt')
+results = model(frame)
 
-    img = camera.Capture()
-    detections = net.Detect(img)
-
-
-if __name__ == "__main__":
-    main()
+print(results)
