@@ -6,8 +6,9 @@ int leftMotor2 = 7;
 int rightMotor1 = 6;
 int rightMotor2 = 5;
 
-int direction;
+int LRdirection;
 int angle;
+int FBdirection;
 int dist;
 String inputString;
 
@@ -95,23 +96,29 @@ void  loop() {
   }
   // 1 character - direction (1 as left and 0 as right)
   // 3 characters - angle
+  // 1 character - direction (1 as forward and 0 as backward)
   // 3 characters - distance
-  direction = inputString.substring(0, 1).toInt();
+  LRdirection = inputString.substring(0, 1).toInt();
   angle = inputString.substring(1, 4).toInt();
-  String dist_str = inputString.substring(4, 8);
+  FBdirection = inputString.substring(4, 5).toInt();
+  String dist_str = inputString.substring(5, 8);
   while (dist_str.length() < 3) {
     dist_str = "0" + dist_str;
   }
   dist = dist_str.toInt();
 
-  if(direction == 1){
+  if(LRdirection == 1){
     turnLeft(angle * 10);
   }
   else{
     turnRight(angle * 10);
   }
-  goForward(dist * 10);
-
+  if(FBdirection == 1){
+      goForward(dist * 10);
+  }
+  else {
+  goBackward(dist * 10);
+  }
 }
 
 
