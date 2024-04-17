@@ -6,8 +6,8 @@ int servo1_pin = 12;
 int servo2_pin = 13;
 // int motor_pin1 = 6;
 // int motor_pin2 = 7;
-int motor_pin3 = 8;
-int motor_pin4 = 9;
+int motor_pin3 = 6;
+int motor_pin4 = 7;
 int pin_input = 2;
 
 const int stepPin = 4;
@@ -25,6 +25,7 @@ const int HEADER = 0x59;
 int TF01_pix;
 int dist, strength;
 int a, b, c, d, e, f, check, i;
+bool moveArmGo = false;
 
 const byte rxPin = 10;
 const byte txPin = 11;
@@ -53,33 +54,39 @@ void setup() {
 }
 
 void loop() {
-  // myservo.write(servoAngle);
-  // digitalWrite(motor_pin1, LOW);
-  // digitalWrite(motor_pin2, HIGH);
-  digitalWrite(motor_pin3, HIGH);
-  digitalWrite(motor_pin4, LOW);
-  delay(5000);
-  // digitalWrite(motor_pin1, LOW);
-  // digitalWrite(motor_pin2, LOW);
-  digitalWrite(motor_pin3, LOW);
-  digitalWrite(motor_pin4, HIGH);
-  delay(5000);
+  myservo.write(servoAngle);
+  if (moveArmGo){
+    Serial.println("Running motor driver");
+    // digitalWrite(motor_pin1, HIGH);
+    // digitalWrite(motor_pin2, LOW);
+    digitalWrite(motor_pin3, LOW);
+    digitalWrite(motor_pin4, HIGH);
+    delay(8000);
 
-  digitalWrite(motor_pin3, LOW);
-  digitalWrite(motor_pin4, LOW);
-  delay(5000);
-  // // rotate a step
-  // rotate(1);
+    // Use servo for 120 degrees
+    myservo.write(120);
+    delay(1500);
 
-  // // get distance 
-  // Serial.println("dist : " + String(getDist()));
+    digitalWrite(motor_pin3, HIGH);
+    digitalWrite(motor_pin4, LOW);
+    delay(8000);
 
-  // // serial print angle
-  // if (currentAngle >= 360.0) {
-  //   currentAngle = currentAngle - 360.0;
-  // }
+    myservo.write(0);
 
-  // Serial.println("angle : " + String(currentAngle));
+    moveArmGo = false;
+  }
+  // rotate a step
+  rotate(1);
+
+  // get distance 
+  Serial.println("dist : " + String(getDist()));
+
+  // serial print angle
+  if (currentAngle >= 360.0) {
+    currentAngle = currentAngle - 360.0;
+  }
+
+  Serial.println("angle : " + String(currentAngle));
 }
 
 int getDist(){
@@ -154,23 +161,6 @@ void rotate(float moveSteps) {
 }
 
 void moveArm() {
-    // Run motor driver for 2 seconds
-    // Serial.println("Running motor driver");
-    // digitalWrite(motor_pin1, HIGH);
-    // digitalWrite(motor_pin2, LOW);
-    // digitalWrite(motor_pin3, HIGH);
-    // digitalWrite(motor_pin4, LOW);
-    // delay(3000);
-    
-
-    // // Use servo for 120 degrees
-    // Serial.println("Servo angle increased");
-    // servoAngle = servoAngle + 2;
-    // servoAngle = servoAngle % 180;
-
-    // digitalWrite(motor_pin1, LOW);
-    // digitalWrite(motor_pin2, LOW);
-    // digitalWrite(motor_pin3, LOW);
-    // digitalWrite(motor_pin4, LOW);
-
+    if (digitalRead(pin_input) == HIGH)    
+    moveArmGo = true;
 }

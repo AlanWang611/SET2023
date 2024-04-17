@@ -1,6 +1,6 @@
 // Motor 1 - Left
 int leftMotor1 = 8;
-int leftMotor2 = 7;
+int leftMotor2 = 9;
 
 // Motor 2 - Right
 int rightMotor1 = 6;
