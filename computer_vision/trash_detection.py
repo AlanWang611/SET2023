@@ -1,9 +1,10 @@
-import ultralytics
+import ultralytics, cv2
 from ultralytics import YOLO
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 
+image = cv2.imread("frame.jpg")
 
 def predict_image(image_path):
     model = YOLO('best_trash.pt')
