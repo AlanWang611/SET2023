@@ -11,6 +11,7 @@ int angle;
 int FBdirection;
 int dist;
 String inputString;
+char inputArr[8];
 
 
 
@@ -79,6 +80,8 @@ void turnRight(int delay_time) {
 void setup() {
   Serial.begin(115200);
   // Initialize all motor pins as outputs
+  pinMode(2, OUTPUT);
+
   pinMode(leftMotor1, OUTPUT);
   pinMode(leftMotor2, OUTPUT);
   pinMode(rightMotor1, OUTPUT);
@@ -88,12 +91,18 @@ void setup() {
 }
 
 void  loop() {
+  Serial.print("Hello");
   while (!Serial.available());
+
+  digitalWrite(2, HIGH);
+  delay(2000);
+  digitalWrite(2, LOW);
 
   // Receiving Data from Computer
   if (Serial.available() > 0) {
-    inputString = Serial.readStringUntil('\n');
+    Serial.readBytes(inputArr, 8);
   }
+      inputString = String(inputArr);
   // 1 character - direction (1 as left and 0 as right)
   // 3 characters - angle
   // 1 character - direction (1 as forward and 0 as backward)
@@ -101,23 +110,25 @@ void  loop() {
   LRdirection = inputString.substring(0, 1).toInt();
   angle = inputString.substring(1, 4).toInt();
   FBdirection = inputString.substring(4, 5).toInt();
-  String dist_str = inputString.substring(5, 8);
-  while (dist_str.length() < 3) {
-    dist_str = "0" + dist_str;
-  }
-  dist = dist_str.toInt();
+  dist = inputString.substring(5, 8).toInt();
+
+  Serial.print(dist);
 
   if(LRdirection == 1){
+    Serial.print("left");
     turnLeft(angle * 10);
   }
   else{
+    Serial.print("right");
     turnRight(angle * 10);
   }
   if(FBdirection == 1){
-      goForward(dist * 10);
+    Serial.print("forward");
+    goForward(dist * 10);
   }
   else {
-  goBackward(dist * 10);
+    Serial.print("backward");
+    goBackward(dist * 10);
   }
 }
 
