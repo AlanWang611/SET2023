@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import math
 import cv2
 from typing import List, Tuple
-from config import *
+from .config import *
 
 
 

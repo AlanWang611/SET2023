@@ -6,7 +6,7 @@ import math
 
 from PIL import Image
 import cv2
-import serial
+# import serial
 import requests
 from pp.distance_measurement import bounding_box_angle, distance_estimation
 from pp.config import *

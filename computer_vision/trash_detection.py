@@ -2,6 +2,8 @@ from ultralytics import YOLO
 from PIL import Image
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
+import cv2
+
 
 image_count = 0
 
@@ -12,6 +14,15 @@ def predict_image(image_path):
     #               line_width=3)
     im = Image.open(image_path).convert('RGB')
     result = model(im, imgsz=1280, conf=0.15, show_labels=True, show_conf=True, iou=0.5, line_width=3)
+
+    #plot stuff onto image
+    im = cv2.imread(image_path)
+    annotated_frame = result[0].plot()
+
+    cv2.imshow('Result', annotated_frame)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
     # result boxes: all coords: x1, y1, x2, y2
     # result_boxes = result[0].boxes.xyxy.cpu().detach().numpy()
     return result[0].tojson()
