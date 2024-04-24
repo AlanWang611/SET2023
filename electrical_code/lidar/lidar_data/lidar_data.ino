@@ -4,10 +4,10 @@
 Servo myservo;
 int servo1_pin = 12;
 int servo2_pin = 13;
-// int motor_pin1 = 6;
-// int motor_pin2 = 7;
-int motor_pin3 = 6;
-int motor_pin4 = 7;
+int motor_pin1 = 6;
+int motor_pin2 = 7;
+int motor_pin3 = 8;
+int motor_pin4 = 9;
 int pin_input = 2;
 
 const int stepPin = 4;
@@ -40,8 +40,8 @@ void setup() {
 
   myservo.attach(servo1_pin);
   // myservo.attach(servo2_pin);
-  // pinMode(motor_pin1, OUTPUT);
-  // pinMode(motor_pin2, OUTPUT);
+  pinMode(motor_pin1, OUTPUT);
+  pinMode(motor_pin2, OUTPUT);
   pinMode(motor_pin3, OUTPUT);
   pinMode(motor_pin4, OUTPUT);
   pinMode(pin_input, INPUT);
@@ -57,18 +57,20 @@ void loop() {
   myservo.write(servoAngle);
   if (moveArmGo){
     Serial.println("Running motor driver");
-    // digitalWrite(motor_pin1, HIGH);
-    // digitalWrite(motor_pin2, LOW);
-    digitalWrite(motor_pin3, LOW);
-    digitalWrite(motor_pin4, HIGH);
+    digitalWrite(motor_pin1, LOW);
+    digitalWrite(motor_pin2, HIGH);
+    digitalWrite(motor_pin3, HIGH);
+    digitalWrite(motor_pin4, LOW);
     delay(8000);
 
     // Use servo for 120 degrees
     myservo.write(120);
     delay(1500);
 
-    digitalWrite(motor_pin3, HIGH);
-    digitalWrite(motor_pin4, LOW);
+    digitalWrite(motor_pin1, HIGH);
+    digitalWrite(motor_pin2, LOW);
+    digitalWrite(motor_pin3, LOW);
+    digitalWrite(motor_pin4, HIGH);
     delay(8000);
 
     myservo.write(0);
