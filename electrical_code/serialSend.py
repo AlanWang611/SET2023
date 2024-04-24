@@ -14,6 +14,7 @@ def move(angle, dist):
    angle = '0' * (3 - len(angle))  + angle
    dist = '0' * (3 - len(dist)) + dist
    command = angle + dist
+   print(command)
    write_read(command)
    #print(command)
 
