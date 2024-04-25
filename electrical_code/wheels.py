@@ -5,6 +5,7 @@ class Wheels:
     time_divisor = 10
 
     def __init__(self, port_num):
+        print(port_num)
         self.arduino = serial.Serial(port=port_num, baudrate=115200, timeout=0.1)
         self.arduino.flush()
 
