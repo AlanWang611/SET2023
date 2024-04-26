@@ -50,13 +50,22 @@ class Robot:
         angle_deg = angle_rad * 180 / math.pi
 
         # TODO: Handle the case where the seconds needed to turn is greater than the maximum amount of seconds allowed
+
         if angle_deg < 0:  # turn left
-            turnLeft(ROBOT_SECONDS_PER_DEGREE * angle_deg)
+            fp = turnLeft
         else:  # turn right
-            turnRight(ROBOT_SECONDS_PER_DEGREE * angle_deg)
+            fp = turnRight
+
+        secs = ROBOT_SECONDS_PER_DEGREE * angle_deg
+        while secs > 0:
+            fp(min(secs * 1000, 999))
+            secs -= min(secs * 1000, 999)
 
     def move_forward(self, distance_meters: float):
-        goForward(ROBOT_SECONDS_PER_METER * distance_meters)
+        secs = ROBOT_SECONDS_PER_METER * distance_meters
+        while secs > 0:
+            goForward(min(secs * 1000, 999))
+            secs -= min(secs * 1000, 999)
 
     def collect_trash(self):
         pass
