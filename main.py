@@ -60,6 +60,7 @@ image_count = 0
 YOLO_INFERENCE_SERVER_ADDRESS = os.environ.get('YOLO_INFERENCE_SERVER_ADDRESS')
 IMAGE_SAVE_DIR = os.environ.get('IMAGE_SAVE_DIR')
 
+
 def setup():
 
     if not os.path.exists(IMAGE_SAVE_DIR):
@@ -95,6 +96,7 @@ def do_yolo_inference(image_path: str) -> dict:
     with open(image_path, 'rb') as f:
         data = f.read()
 
+    print("Sending image")
     r = requests.post(YOLO_INFERENCE_SERVER_ADDRESS, data=data)
     resp = r.json()
     return resp
@@ -137,7 +139,8 @@ handler_functions = {
 
 
 def main():
-    cap = cv2.VideoCapture('/dev/video2')
+    cap = cv2.VideoCapture('/dev/video0')
+    cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
     state = RobotStateVariables(RobotState(0), None)
     setup()
 
