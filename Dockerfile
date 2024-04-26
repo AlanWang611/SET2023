@@ -10,6 +10,5 @@ COPY requirements.txt .
 RUN python3 -m pip install -r requirements.txt
 
 COPY jetson_code .
-RUN cd jetson_code
 
 CMD ["python3", "main.py"]
