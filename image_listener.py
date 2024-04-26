@@ -2,7 +2,7 @@
 # 1/23/2024
 
 import time
-import rospy
+# import rospy
 import cv2
 from std_msgs.msg import String
 from sensor_msgs.msg import Image

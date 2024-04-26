@@ -1,4 +1,7 @@
-matplotlib
+ultralytics
 opencv-python
 numpy
-serial
+pyserial
+python-dotenv
+pillow
+requests
